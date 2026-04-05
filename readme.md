@@ -163,6 +163,9 @@ Parameters searched: `n_estimators`, `max_depth`, `learning_rate`, `subsample`, 
 
 `is_business` is the dominant feature by a wide margin, confirming the bimodal analysis. `duration`, `days_left`, and `airline` are next. The engineered features `urgency_num` and `duration_sq` both contribute meaningfully.
 
+### ANN (Keras + Keras Tuner)
+Neural network trained on the same splits with OHE + StandardScaler preprocessing.
+
 #### Architecture search (Keras Tuner RandomSearch, 20 trials)
 
 Hyperparameters tuned:
