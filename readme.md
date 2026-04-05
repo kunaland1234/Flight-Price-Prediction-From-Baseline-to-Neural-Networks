@@ -143,39 +143,19 @@ Explores all distributions, confirms the bimodal target, engineers 6 leak-free f
 
 ### Notebook 02 — Models
 
-#### Ridge Regression (baseline linear model)
+#### Linear Regression (baseline linear model)
 
 A regularised linear model with hyperparameter search over `alpha`.
 
-![Ridge alpha search](reports/ridge_alpha_search.png)
-
-Linear models struggle here because:
+Linear Regression struggle here because:
 - The Economy/Business price boundary is a hard non-linearity
 - Interaction effects (long Business flights cost disproportionately more) are not captured by additive linear terms
 
-#### Ridge hyperparameter search result
+#### XGBoost
 
-![Linear predicted vs actual](reports/linear_pred_vs_actual.png)
-
-The predicted vs actual plot for Ridge shows a clear split into two clusters — it partially learns the boundary but cannot model within-cluster non-linearities well.
-
-#### XGBoost baseline
-
-300 trees, default parameters. Already stronger than Ridge on the first run.
-
-![XGBoost baseline learning curve](reports/xgb_baseline_curve.png)
-
-#### XGBoost RandomizedSearch (50 iterations, 3-fold CV)
+300 trees, default parameters. Already stronger than Linear Regression on the first run.
 
 Parameters searched: `n_estimators`, `max_depth`, `learning_rate`, `subsample`, `colsample_bytree`, `min_child_weight`, `reg_alpha`, `reg_lambda`.
-
-![XGBoost hyperparameter search 50 iterations](reports/xgb_search.png)
-
-#### XGBoost tuned learning curve
-
-![XGBoost tuned learning curve overfitting check](reports/xgb_tuned_curve.png)
-
-Train and val RMSE converge tightly with no divergence — no overfitting.
 
 #### Feature importance
 
@@ -194,14 +174,6 @@ Hyperparameters tuned:
 - Batch size: 128 / 256 / 512 / 1024 (manual experiment)
 
 Callbacks: `EarlyStopping(patience=15)` + `ReduceLROnPlateau(factor=0.5, patience=7)`
-
-#### Baseline ANN learning curve
-
-![Baseline ANN learning curve loss and MAE](reports/Baseline_ANN.png)
-
-#### Tuned ANN learning curve
-
-![Tuned ANN learning curve loss and MAE](reports/Tuned_ANN.png)
 
 #### Overfitting check — generalisation gap
 
@@ -250,12 +222,8 @@ The relationship "Business class + long duration = extremely expensive" is captu
 XGBoost tuned shows a train-val R² gap of only 0.0043. The regularisation terms (`reg_alpha`, `reg_lambda`, `subsample`, `colsample_bytree`) found by RandomizedSearch tightly control variance.
 
 ## Key Takeaways
-
-- Always check your target distribution before modeling — the bimodal discovery changed the entire strategy
-- `is_business` alone explains the majority of price variance
-- Use stratified splits when classes are imbalanced — Business class is only 17% of data
-- For tabular data, never assume neural networks will outperform tree models — benchmark both
-- Log-transforming a skewed target consistently helps linear models more than tree models
-- Train and val curves should be plotted for every model — not just final metrics
-
+- Flight class explains most of the variation in price.
+- Feature engineering significantly improves model performance.
+- Depending on the data distribution, traditional machine learning models can outperform neural networks.
+- Neural networks require larger datasets to outperform boosting models.
 ---
