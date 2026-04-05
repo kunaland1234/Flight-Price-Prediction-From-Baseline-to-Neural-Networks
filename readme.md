@@ -90,7 +90,7 @@ Prices rise sharply in the last 7 days before departure (last-minute premium) an
 
 ---
 
-## 🔧 Feature Engineering
+## Feature Engineering
 
 All features are derived only from information **available at booking time** — no leakage.
 
@@ -114,7 +114,7 @@ All features are derived only from information **available at booking time** —
 
 ---
 
-## 🤖 Modeling Journey
+## Modeling Journey
 
 ### Preprocessing strategy
 
@@ -179,11 +179,6 @@ Callbacks: `EarlyStopping(patience=15)` + `ReduceLROnPlateau(factor=0.5, patienc
 
 ![ANN overfitting check train vs val gap](reports/ann_overfit_check.png)
 
-#### Predicted vs actual — tuned ANN
-
-![ANN predicted vs actual val set](reports/ann_pred_vs_actual.png)
-
-Two clear clusters visible — Economy (bottom-left) and Business (top-right). Both clusters are well-calibrated.
 
 ---
 
@@ -193,7 +188,7 @@ Two clear clusters visible — Economy (bottom-left) and Business (top-right). B
 
 | Model | Train R² | Val R² | Train RMSE | Val RMSE | Val MAE |
 |---|---|---|---|---|---|
-| Ridge (tuned) | 0.9182 | 0.9165 | Rs. 8,068 | Rs. 8,164 | Rs. 4,685 |
+| Linear Regression (tuned) | 0.9182 | 0.9165 | Rs. 8,068 | Rs. 8,164 | Rs. 4,685 |
 | Baseline ANN | 0.9775 | 0.9750 | Rs. 3,703 | Rs. 3,831 | Rs. 1,992 |
 | Tuned ANN | 0.9739 | 0.9717 | Rs. 3,989 | Rs. 4,094 | Rs. 2,146 |
 | **XGBoost (tuned)** | **0.9885** | **0.9842** | **Rs. 2,421** | **Rs. 2,762** | **Rs. 1,377** |
